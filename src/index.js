@@ -13,4 +13,4 @@ app.listen(PORT, async () => {
 })
 
 
- //db.sequelize.sync({ force: true })
+//db.sequelize.sync({ force: true })

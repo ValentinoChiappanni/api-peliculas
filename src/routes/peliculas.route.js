@@ -6,9 +6,10 @@ const schemasValidator = require('../middlewares/scemasValidate.middlewares')
 const peliculasSchemas = require('../schemas/peliculas.schemas')
 
 route.get("/peliculas",controllers.getAllPeliculas )
+route.get("/peliculasYActores",controllers.getAllPeliculasYActores )
 route.get("/peliculas/:id",validatePelicula, controllers.getPeliculaById )
 route.delete("/peliculas/:id",validatePelicula, controllers.deletePeliculaById )
 route.post("/peliculas",schemasValidator(peliculasSchemas),controllers.postPelicula )
 route.put("/peliculas/:id",schemasValidator(peliculasSchemas), validatePelicula, controllers.updatePeliculaById )
-
+route.post("/peliculas/:id/actores", controllers.addActorById)
 module.exports = route

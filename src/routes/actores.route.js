@@ -6,6 +6,7 @@ const {validateActores} = require('../middlewares/actores.middlewares')
 // const peliculasSchemas = require('../schemas/peliculas.schemas')
 
 route.get("/actores",controllers.getAllActores )
+route.get("/actoresYPeliculas",controllers.getAllActoresYPeliculas )
 route.get("/actores/:id",validateActores, controllers.getActorById )
 route.delete("/actores/:id",validateActores, controllers.deleteActorById )
 route.post("/actores",controllers.postActor )

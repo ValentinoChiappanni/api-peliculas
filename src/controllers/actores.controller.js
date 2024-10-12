@@ -1,4 +1,4 @@
-const {Actores} = require('../models')
+const {Actores,Peliculas} = require('../models')
 const controller = {}
 
 const getAllActores = async (req,res) => {
@@ -6,6 +6,16 @@ const getAllActores = async (req,res) => {
     res.status(200).json(actores)
 }
 controller.getAllActores = getAllActores
+
+const getAllActoresYPeliculas = async (req,res) => {
+    const actores = await Actores.findAll({
+        include:[{
+            model:Peliculas
+        }]
+    })
+    res.status(200).json(actores)
+}
+controller.getAllActoresYPeliculas = getAllActoresYPeliculas
 
 const getActorById = async (req,res) => {
     const {id} = req.params

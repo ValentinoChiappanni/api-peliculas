@@ -1,5 +1,5 @@
 const { where } = require('sequelize')
-const {Peliculas} = require('../models')
+const {Peliculas,Actores} = require('../models')
 const controller = {}
 
 const getAllPeliculas = async (req,res) => {
@@ -7,6 +7,17 @@ const getAllPeliculas = async (req,res) => {
     res.status(200).json(peliculas)
 }
 controller.getAllPeliculas = getAllPeliculas
+
+const getAllPeliculasYActores = async (req,res) => {
+    const peliculas = await Peliculas.findAll({order: [['añoEstreno','ASC']],
+        include: [{
+            model: Actores
+        }]
+    },  
+    )
+    res.status(200).json(peliculas)
+}
+controller.getAllPeliculasYActores = getAllPeliculasYActores
 
 const getPeliculaById = async (req,res) => {
     const {id} = req.params
@@ -50,5 +61,15 @@ const updatePeliculaById= async (req,res) => {
     res.status(200).json(pelicula)
 }
 controller.updatePeliculaById = updatePeliculaById
+
+const addActorById= async (req,res) => {
+    const {id} = req.params // ID PELICULA
+    const {actorId} = req.body  // ID ACTOR
+    const pelicula = await Peliculas.findByPk(id) 
+    const actor = await Actores.findByPk(actorId)
+    const peliculaActor = await pelicula.addActores(actor)
+    res.status(200).json(peliculaActor) 
+}
+controller.addActorById=addActorById
 
 module.exports= controller
